@@ -32,7 +32,7 @@ function getPeople(request, response) {
     const SQL = 'SELECT * FROM newtable;';
     client.query(SQL).then((result) => {
         response.render('index', { people: result.rows });
-    })
+    }).catch((err) => errorHandler(err, request, response));
 }
 
 function getForm(request, response) {
@@ -47,14 +47,14 @@ function getForm(request, response) {
         })
 
         response.render('add_form', { zodListNames: zodListNames });
-    })
+    }).catch((err) => errorHandler(err, request, response));
 }
 
 function getPerson(request, response) {
     const detailSQL = 'SELECT * FROM newtable WHERE id=$1;';
     const detailVal = [request.params.person_id];
     client.query(detailSQL, detailVal).then((detailRes) => {
-        response.render('detail', {personDetail: detailRes.rows[0]})
+        response.render('detail', { personDetail: detailRes.rows[0] })
     })
 
 }
@@ -77,11 +77,11 @@ function addPerson(request, response) {
                 const addVal = [person.name, person.birthDate, person.sign, person.good_traits, person.bad_traits];
                 client.query(addSQL, addVal).then((addResult) => {
                     response.redirect('/');
-                })
+                }).catch((err) => errorHandler(err, request, response));
             } else {
                 response.redirect('/');
             }
-        })
+        }).catch((err) => errorHandler(err, request, response));
 
     })
 
@@ -93,7 +93,7 @@ function updatePerson(request, response) {
     const updateVal = [request.body.name, request.body.date, request.body.sign, request.body.good, request.body.bad, request.params.person_id];
     client.query(sqlUpdate, updateVal).then(updateRes => {
         response.redirect(`/people/${request.params.person_id}`);
-    })
+    }).catch((err) => errorHandler(err, request, response));
 }
 
 function deletePerson(request, response) {
@@ -101,13 +101,13 @@ function deletePerson(request, response) {
     const deleteVal = [request.params.person_id];
     client.query(sqlDelete, deleteVal).then(deleteRes => {
         response.redirect('/');
-    }) 
+    }).catch((err) => errorHandler(err, request, response));
 }
 
 
 client.connect().then(() => {
     app.listen(PORT, console.log(`The app is running on port ${PORT}`));
-})
+}).catch((err) => errorHandler(err, request, response));
 
 
 function ZodicSign(sign) {
