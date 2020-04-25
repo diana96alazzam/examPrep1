@@ -29,7 +29,7 @@ app.delete('/delete/:person_id', deletePerson);
 app.use('*', notFoundHandler);
 
 function getPeople(request, response) {
-    const SQL = 'SELECT * FROM newtable;';
+    const SQL = "SELECT * FROM newtable;";
     client.query(SQL).then((result) => {
         response.render('index', { people: result.rows });
     }).catch((err) => errorHandler(err, request, response));
@@ -51,7 +51,7 @@ function getForm(request, response) {
 }
 
 function getPerson(request, response) {
-    const detailSQL = 'SELECT * FROM newtable WHERE id=$1;';
+    const detailSQL = "SELECT * FROM newtable WHERE id=$1;";
     const detailVal = [request.params.person_id];
     client.query(detailSQL, detailVal).then((detailRes) => {
         response.render('detail', { personDetail: detailRes.rows[0] })
@@ -69,11 +69,11 @@ function addPerson(request, response) {
         let bad = zodicRes.body[0].bad_traits;
         let person = new Person(formName, formBirth, zodicNamesListForm, good, bad);
 
-        const sqlSearch = 'SELECT * FROM newtable WHERE name=$1 AND age=$2 AND zodiac=$3;';
+        const sqlSearch = "SELECT * FROM newtable WHERE name=$1 AND age=$2 AND zodiac=$3;";
         const searchVal = [person.name, person.birthDate, person.sign];
         client.query(sqlSearch, searchVal).then((searchRes) => {
             if (searchRes.rows.length === 0) {
-                const addSQL = 'INSERT INTO newtable (name, age, zodiac, good_traits, bad_traits) VALUES ($1, $2, $3, $4, $5);';
+                const addSQL = "INSERT INTO newtable (name, age, zodiac, good_traits, bad_traits) VALUES ($1, $2, $3, $4, $5);";
                 const addVal = [person.name, person.birthDate, person.sign, person.good_traits, person.bad_traits];
                 client.query(addSQL, addVal).then((addResult) => {
                     response.redirect('/');
@@ -89,7 +89,7 @@ function addPerson(request, response) {
 
 function updatePerson(request, response) {
     console.log(request.params.person_id)
-    const sqlUpdate = 'UPDATE newtable SET name=$1, age=$2, zodiac=$3, good_traits=$4, bad_traits=$5 WHERE id=$6;';
+    const sqlUpdate = "UPDATE newtable SET name=$1, age=$2, zodiac=$3, good_traits=$4, bad_traits=$5 WHERE id=$6;";
     const updateVal = [request.body.name, request.body.date, request.body.sign, request.body.good, request.body.bad, request.params.person_id];
     client.query(sqlUpdate, updateVal).then(updateRes => {
         response.redirect(`/people/${request.params.person_id}`);
@@ -97,7 +97,7 @@ function updatePerson(request, response) {
 }
 
 function deletePerson(request, response) {
-    const sqlDelete = 'DELETE FROM newtable WHERE id=$1;';
+    const sqlDelete = "DELETE FROM newtable WHERE id=$1;";
     const deleteVal = [request.params.person_id];
     client.query(sqlDelete, deleteVal).then(deleteRes => {
         response.redirect('/');
