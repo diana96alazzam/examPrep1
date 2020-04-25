@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home page</title>
+</head>
+<body>
+    <header>
+        <h1>HEllO!</h1>
+        <nav>
+            <ul>
+                <a href="/"><li>Home Page</li></a>
+                <a href="/add"><li>Add people</li></a>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <ul>
+        <%people.forEach((person)=> {%>
+            <li>Name: <%=person.name%>, Birth date: <%=person.age%>, Zodiac sign: <%=person.zodiac%>, Good traits: <%=person.good_traits%>, Bad traits:<%=person.bad_traits%>.</li>
+            <a href="/people/<%=person.id%>">Show Details</a>
+        <%})%>
+        </ul>
+
+    </main>
+
+    <footer>
+        <p>@2020-401Entrance-Exam</p>
+    </footer>
+</body>
+</html>

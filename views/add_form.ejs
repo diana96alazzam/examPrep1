@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adding people</title>
+</head>
+<body>
+    <header>
+
+    </header>
+
+    <main>
+        <form action="/add" method="POST">
+            <label>Name<input type="text" name="formName"></label>
+            <label>Birth Date<input type="date" name="formBirth"></label>
+            <select name="zodicNamesListForm" >
+                <%zodListNames.forEach(item=> {%>
+                    <option value="<%=item%>"><%=item%></option>
+                <%})%>
+            </select>
+            <button type="submit">Add</button>
+        </form>
+    </main>
+    
+    <footer>
+        <p>@2020-401Entrance-Exam</p>
+    </footer>
+</body>
+</html>

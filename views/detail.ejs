@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Details page</title>
+</head>
+<body>
+    <header>
+
+    </header>
+
+    <main>
+        <ul>
+            <li>Name: <%=personDetail.name%></li>
+            <li>Birth date: <%=personDetail.age%></li>
+            <li>Zodiac sign: <%=personDetail.zodiac%> </li>
+            <li>Good Traits: <%=personDetail.good_traits%></li>
+            <li>Bad Traits: <%=personDetail.bad_traits%> </li>
+        </ul>
+        <form action="/update/<%=personDetail.id%>?_method=PUT" method="POST">
+            <label>Name: <input type="text" value="<%=personDetail.name%>" name="name"></label>
+            <label>Birth date: <input type="text" value="<%=personDetail.age%>" name="date"></label>
+            <label>Zodiac sign: <input type="text" value="<%=personDetail.zodiac%>" name="sign"></label>
+            <label>Good Traits: <input type="text" value="<%=personDetail.good_traits%>" name="good"></label>
+            <label>Bad Traits: <input type="text" value="<%=personDetail.bad_traits%>" name="bad"></label>
+            <button type="submit">Update</button>
+        </form>
+        <form action="/delete/<%=personDetail.id%>?_method=DELETE" method="POST">
+            <button type="submit">Delete</button>
+        </form>
+        <a href="/">Back to main page</a>
+
+    </main>
+    
+    <footer>
+        <p>@2020-401Entrance-Exam</p>
+    </footer>
+</body>
+</html>
